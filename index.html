@@ -338,6 +338,7 @@ a:hover { text-decoration: none; color: var(--accent-dark); }
       <li><a href="#intro">项目介绍</a></li>
       <li><a href="#architecture">系统架构</a></li>
       <li><a href="#tech">核心技术</a></li>
+      <li><a href="#gallery">机器实物</a></li>
       <li><a href="#iot">物联网架构</a></li>
       <li><a href="#team">团队成员</a></li>
       <li><a href="#contact">联系我们</a></li>
@@ -419,57 +420,7 @@ a:hover { text-decoration: none; color: var(--accent-dark); }
   <div class="container">
     <h2>系统架构</h2>
     <figure class="diagram reveal">
-      <pre class="mermaid">
-flowchart LR
-    subgraph MECH["&nbsp; 机械执行子系统 &nbsp;"]
-        A1["&#9312; 限位扩缝"] --> A2["&#9313; 水平翻转"]
-        A2 --> A3["&#9314; 红外推送"]
-        A3 --> A4["&#9315; 夹持开壳"]
-        A4 --> A5["&#9316; 翻转取肉"]
-    end
-
-    subgraph CTRL["&nbsp; 嵌入式控制子系统 &nbsp;"]
-        B1["STM32F407VET6 主控"]
-        B2["步进/伺服电机驱动"]
-        B3["多传感器采集"]
-        B4["PID 闭环控制"]
-        B5["HMI 触摸屏交互"]
-        B1 --> B2
-        B1 --> B3
-        B1 --> B4
-        B1 --> B5
-    end
-
-    subgraph VIS["&nbsp; 视觉与感知子系统 &nbsp;"]
-        C1["工业相机 / AI Camera"] --> C2["YOLOv8-seg 分割"]
-        C2 --> C3["头尾朝向判别"]
-        C3 --> C4["内外壳检测"]
-        C4 --> C5["取肉路径规划"]
-        C6["光谱仪"] --> C7["新鲜度分级"]
-    end
-
-    subgraph NET["&nbsp; 物联网通信层 &nbsp;"]
-        D1["Modbus-RTU 有线"]
-        D2["WiFi / 蓝牙无线"]
-        D3["ESP32-S3 调试"]
-    end
-
-    C5 -.-> |"姿态指令"| B1
-    C7 -.-> |"分级结果"| B1
-    B1 --> A1
-    NET -.-> |"数据传输"| B1
-    NET -.-> |"数据上传"| VIS
-
-    classDef mech fill:#dcfce7,stroke:#166534,color:#166534,stroke-width:1.5px
-    classDef ctrl fill:#dbeafe,stroke:#1e40af,color:#1e40af,stroke-width:1.5px
-    classDef vis fill:#fff7ed,stroke:#9a3412,color:#9a3412,stroke-width:1.5px
-    classDef net fill:#f3e8ff,stroke:#7c3aed,color:#7c3aed,stroke-width:1.5px
-
-    class A1,A2,A3,A4,A5 mech
-    class B1,B2,B3,B4,B5 ctrl
-    class C1,C2,C3,C4,C5,C6,C7 vis
-    class D1,D2,D3 net
-      </pre>
+      <img src="assets/architecture-diagram.png" alt="全自动生蚝开壳取肉机系统架构图" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.12);">
       <figcaption>图 1：全自动生蚝开壳取肉机系统架构 — 机械执行、嵌入式控制、视觉感知、物联网通信四层协同</figcaption>
     </figure>
   </div>
@@ -524,7 +475,18 @@ flowchart LR
   </div>
 </section>
 
-<!-- ===== [4.5] 物联网架构 ===== -->
+<!-- ===== [4.5] 机器实物 ===== -->
+<section class="section" style="background: var(--bg2);" id="gallery">
+  <div class="container">
+    <h2>机器实物</h2>
+    <div class="reveal" style="text-align:center;">
+      <img src="assets/machine-photo.png" alt="全自动生蚝开壳取肉机实物图" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.15);transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+      <p style="margin-top:1rem;font-size:0.9rem;color:var(--muted);">图：全自动生蚝开壳取肉机实物整体</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== [4.6] 物联网架构 ===== -->
 <section class="section" id="iot">
   <div class="container">
     <h2>物联网四层架构</h2>
