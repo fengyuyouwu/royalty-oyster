@@ -109,15 +109,17 @@ em{color:var(--gold);font-style:normal}
 .tech-tag{display:inline-block;background:rgba(8,20,45,0.6);padding:0.3rem 0.8rem;border-radius:14px;font-size:0.78rem;color:var(--muted);margin:0.15rem 0.25rem 0.15rem 0;transition:all 0.25s;border:1px solid transparent}
 .tech-tag:hover{background:rgba(34,211,238,0.08);color:var(--cyan);border-color:var(--border-glow)}
 
-.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem}
-.member-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;padding:1.5rem 1rem;text-align:center;backdrop-filter:blur(4px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden}
+/* ── Team Carousel ── */
+.team-carousel{overflow:hidden;position:relative;mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 90%,transparent 100%)}
+.team-track{display:flex;gap:1.5rem;width:max-content;animation:conveyorScroll 28s linear infinite}
+.team-track:hover{animation-play-state:paused}
+@keyframes conveyorScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.member-card{flex:0 0 220px;background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;padding:1.5rem 1rem;text-align:center;backdrop-filter:blur(4px);transition:all 0.5s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden;cursor:default}
 .member-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--glow));transform:scaleX(0);transition:transform 0.5s ease}
-.member-card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 0 30px rgba(34,211,238,0.2)}
+.member-card:hover{transform:translateY(-8px) scale(1.06);border-color:var(--cyan);box-shadow:0 0 40px rgba(34,211,238,0.35);z-index:10}
 .member-card:hover::before{transform:scaleX(1)}
-.member-photo{width:90px;height:90px;border-radius:50%;margin:0 auto 0.75rem;object-fit:cover;display:block;border:2px solid var(--border-glow);transition:all 0.4s;box-shadow:0 0 25px rgba(56,189,248,0.2)}
-.member-card:hover .member-photo{transform:scale(1.08);box-shadow:0 0 40px rgba(56,189,248,0.5);border-color:var(--cyan)}
-.member-avatar-placeholder{width:90px;height:90px;border-radius:50%;margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:700;color:#fff;transition:transform 0.4s,box-shadow 0.4s;box-shadow:0 0 25px rgba(56,189,248,0.2)}
-.member-card:hover .member-avatar-placeholder{transform:scale(1.1);box-shadow:0 0 40px rgba(56,189,248,0.5)}
+.member-photo{width:90px;height:90px;border-radius:50%;margin:0 auto 0.75rem;object-fit:cover;display:block;border:2px solid var(--border-glow);transition:all 0.5s;box-shadow:0 0 25px rgba(56,189,248,0.2)}
+.member-card:hover .member-photo{transform:scale(1.12);box-shadow:0 0 45px rgba(56,189,248,0.6);border-color:var(--cyan)}
 .member-card h4{font-size:1.05rem;margin-bottom:0.2rem;color:var(--white)}
 .member-role{font-size:0.8rem;color:var(--cyan);font-weight:600;margin-bottom:0.5rem;text-shadow:0 0 10px rgba(34,211,238,0.3)}
 .member-desc{font-size:0.82rem;color:var(--muted);line-height:1.5}
@@ -145,13 +147,15 @@ em{color:var(--gold);font-style:normal}
 @media(max-width:768px){
   h1{font-size:2rem}.hero h1{font-size:2rem}h2{font-size:1.5rem}.section{padding:3.5rem 0}
   .stats-row{grid-template-columns:repeat(2,1fr)}.tech-grid{grid-template-columns:1fr}
-  .fusion-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:repeat(2,1fr)}
+  .fusion-grid{grid-template-columns:1fr}
+  .team-carousel{mask-image:none;-webkit-mask-image:none}
+  .member-card{flex:0 0 180px}
   .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(3,11,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glow);padding:1rem 1.5rem;gap:0.75rem}
   .nav-links.open{display:flex}.nav-toggle{display:block}
   .mechanism-flow{flex-direction:column}.mech-arrow{transform:rotate(90deg)}
 }
 @media(max-width:480px){
-  .stats-row{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr}.member-card{flex:0 0 160px}
   .innovation-list{flex-direction:column;align-items:center}.hero-actions{flex-direction:column;align-items:center}
 }
 @media print{
@@ -327,41 +331,20 @@ em{color:var(--gold);font-style:normal}
   <div class="container">
     <h2>团队成员</h2>
     <p class="advisor-text">指导老师：<strong>李东炜</strong> &nbsp;|&nbsp; 广州大学 · 机械与电气工程学院 &nbsp;|&nbsp; 中美青年创客大赛</p>
-    <div class="team-grid">
-      <!-- 1. 欧阳光 -->
-      <div class="member-card reveal">
-        <img class="member-photo" src="assets/member-ouyangguang.png" alt="欧阳光">
-        <h4>欧阳光</h4>
-        <div class="member-role">项目负责人</div>
-        <div class="member-desc">统筹项目进度、系统集成<br>竞赛申报与答辩汇报</div>
-      </div>
-      <!-- 2. 曾中裕 -->
-      <div class="member-card reveal">
-        <img class="member-photo" src="assets/member-zengzhongyu.png" alt="曾中裕">
-        <h4>曾中裕</h4>
-        <div class="member-role">视觉与系统调试</div>
-        <div class="member-desc">OpenCV图像处理<br>数字孪生平台搭建</div>
-      </div>
-      <!-- 3. 方梓铨 -->
-      <div class="member-card reveal">
-        <img class="member-photo" src="assets/member-fangziquan.png" alt="方梓铨">
-        <h4>方梓铨</h4>
-        <div class="member-role">嵌入式电控开发</div>
-        <div class="member-desc">STM32主控编程、电机驱动<br>PID控制、四层PCB设计</div>
-      </div>
-      <!-- 4. 刘文轩 -->
-      <div class="member-card reveal">
-        <img class="member-photo" src="assets/member-liuwenxuan.png" alt="刘文轩">
-        <h4>刘文轩</h4>
-        <div class="member-role">机械结构设计</div>
-        <div class="member-desc">SolidWorks建模、五大机构设计<br>ANSYS 有限元仿真分析</div>
-      </div>
-      <!-- 5. 孙之淮 -->
-      <div class="member-card reveal">
-        <img class="member-photo" src="assets/member-sunzhihuai.png" alt="孙之淮">
-        <h4>孙之淮</h4>
-        <div class="member-role">计算机视觉算法</div>
-        <div class="member-desc">YOLOv8-seg模型训练<br>头尾判别、光谱数据分析</div>
+    <div class="team-carousel reveal">
+      <div class="team-track">
+        <!-- set 1 -->
+        <div class="member-card"><img class="member-photo" src="assets/member-ouyangguang.png" alt="欧阳光"><h4>欧阳光</h4><div class="member-role">项目负责人</div><div class="member-desc">统筹项目进度、系统集成<br>竞赛申报与答辩汇报</div></div>
+        <div class="member-card"><img class="member-photo" src="assets/member-zengzhongyu.png" alt="曾中裕"><h4>曾中裕</h4><div class="member-role">硬件电路与系统调试</div><div class="member-desc">多传感融合系统集成<br>数字孪生平台搭建</div></div>
+        <div class="member-card"><img class="member-photo" src="assets/member-fangziquan.png" alt="方梓铨"><h4>方梓铨</h4><div class="member-role">嵌入式电控开发</div><div class="member-desc">STM32主控编程、电机驱动<br>PID控制、四层PCB设计</div></div>
+        <div class="member-card"><img class="member-photo" src="assets/member-liuwenxuan.png" alt="刘文轩"><h4>刘文轩</h4><div class="member-role">机械结构设计</div><div class="member-desc">SolidWorks建模、五大机构设计<br>ANSYS 有限元仿真分析</div></div>
+        <div class="member-card"><img class="member-photo" src="assets/member-sunzhihuai.png" alt="孙之淮"><h4>孙之淮</h4><div class="member-role">计算机视觉与光谱算法</div><div class="member-desc">YOLOv8-seg模型训练<br>头尾判别、光谱数据分析</div></div>
+        <!-- set 2 (duplicate for seamless loop) -->
+        <div class="member-card"><img class="member-photo" src="assets/member-ouyangguang.png" alt="欧阳光"><h4>欧阳光</h4><div class="member-role">项目负责人</div><div class="member-desc">统筹项目进度、系统集成<br>竞赛申报与答辩汇报</div></div>
+        <div class="member-card"><img class="member-photo" src="assets/member-zengzhongyu.png" alt="曾中裕"><h4>曾中裕</h4><div class="member-role">硬件电路与系统调试</div><div class="member-desc">多传感融合系统集成<br>数字孪生平台搭建</div></div>
+        <div class="member-card"><img class="member-photo" src="assets/member-fangziquan.png" alt="方梓铨"><h4>方梓铨</h4><div class="member-role">嵌入式电控开发</div><div class="member-desc">STM32主控编程、电机驱动<br>PID控制、四层PCB设计</div></div>
+        <div class="member-card"><img class="member-photo" src="assets/member-liuwenxuan.png" alt="刘文轩"><h4>刘文轩</h4><div class="member-role">机械结构设计</div><div class="member-desc">SolidWorks建模、五大机构设计<br>ANSYS 有限元仿真分析</div></div>
+        <div class="member-card"><img class="member-photo" src="assets/member-sunzhihuai.png" alt="孙之淮"><h4>孙之淮</h4><div class="member-role">计算机视觉与光谱算法</div><div class="member-desc">YOLOv8-seg模型训练<br>头尾判别、光谱数据分析</div></div>
       </div>
     </div>
   </div>
