@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="皇家蚝 Royalty Oyster — 广州大学机械与电气工程学院创新团队，全自动生蚝开壳取肉机">
-<title>皇家蚝 Royalty Oyster — 全自动生蚝开壳取肉机</title>
+<meta name="description" content="皇家蚝 Royalty Oyster — 智启鲜蚝，基于多传感融合的生蚝智能加工装备，广州大学机械与电气工程学院">
+<title>皇家蚝 Royalty Oyster — 智启鲜蚝</title>
 <script src="./_shared/js/p5.min.js"></script>
 <style>
 @font-face { font-family:'Outfit'; src:url('./_shared/fonts/Outfit-Regular.ttf') format('truetype'); font-weight:400; }
@@ -14,202 +14,87 @@
 @font-face { font-family:'JetBrainsMono'; src:url('./_shared/fonts/JetBrainsMono-Bold.ttf') format('truetype'); font-weight:700; }
 
 :root {
-  --abyss: #030b1a;
-  --deep: #061428;
-  --midnight: #0b1d3a;
-  --ocean: #0f2854;
-  --teal: #0d9488;
-  --cyan: #22d3ee;
-  --glow: #38bdf8;
-  --pearl: #bae6fd;
-  --foam: #e0f2fe;
-  --white: #f0f9ff;
-  --gold: #fbbf24;
-  --coral: #fb7185;
-  --surface: rgba(8,20,45,0.72);
-  --surface-light: rgba(12,30,60,0.55);
-  --border-glow: rgba(56,189,248,0.25);
-  --muted: #7ca3c8;
-  --rule: rgba(56,189,248,0.15);
+  --abyss: #030b1a; --deep: #061428; --midnight: #0b1d3a; --ocean: #0f2854;
+  --teal: #0d9488; --cyan: #22d3ee; --glow: #38bdf8; --pearl: #bae6fd;
+  --foam: #e0f2fe; --white: #f0f9ff; --gold: #fbbf24; --coral: #fb7185;
+  --surface: rgba(8,20,45,0.72); --surface-light: rgba(12,30,60,0.55);
+  --border-glow: rgba(56,189,248,0.25); --muted: #7ca3c8; --rule: rgba(56,189,248,0.15);
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Noto Sans SC",sans-serif;
-  font-size:16px;line-height:1.7;color:var(--pearl);
-  background:var(--abyss);overflow-x:hidden;
-}
+body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Noto Sans SC",sans-serif;font-size:16px;line-height:1.7;color:var(--pearl);background:var(--abyss);overflow-x:hidden}
 
-/* ── Fixed background canvas ── */
 #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 #bg-canvas canvas{display:block;width:100%;height:100%}
 
-/* ── Typography ── */
 h1,h2,h3,h4{font-family:'Outfit',"PingFang SC","Microsoft YaHei",sans-serif;font-weight:700;line-height:1.3}
 h1{font-size:3rem;letter-spacing:0.03em}
-h2{
-  font-size:2rem;text-align:center;margin-bottom:2.5rem;position:relative;padding-bottom:0.75rem;
-  background:linear-gradient(135deg,var(--glow),var(--cyan),var(--teal));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  text-shadow:none;
-}
-h2::after{
-  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:80px;height:2px;
-  background:linear-gradient(90deg,transparent,var(--cyan),var(--glow),var(--cyan),transparent);
-  border-radius:2px;
-}
-h3{
-  font-size:1.25rem;margin-bottom:0.75rem;
-  color:var(--cyan);padding-left:0.75rem;
-  border-left:3px solid var(--teal);
-  text-shadow:0 0 20px rgba(34,211,238,0.3);
-}
+h2{font-size:2rem;text-align:center;margin-bottom:2.5rem;position:relative;padding-bottom:0.75rem;background:linear-gradient(135deg,var(--glow),var(--cyan),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--glow),var(--cyan),transparent);border-radius:2px}
+h3{font-size:1.25rem;margin-bottom:0.75rem;color:var(--cyan);padding-left:0.75rem;border-left:3px solid var(--teal);text-shadow:0 0 20px rgba(34,211,238,0.3)}
 p{margin-bottom:1rem}
 a{color:var(--glow);text-decoration:none;transition:color 0.25s}
-a:hover{color:var(--cyan);text-decoration:none}
+a:hover{color:var(--cyan)}
 
 strong{color:var(--white);font-weight:700}
 em{color:var(--gold);font-style:normal}
 
-/* ── Layout ── */
 .container{max-width:1080px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
 .section{padding:5.5rem 0;position:relative;z-index:1}
-.section::before{
-  content:'';position:absolute;inset:0;z-index:-1;
-  background:var(--surface);backdrop-filter:blur(2px);
-}
+.section::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--surface);backdrop-filter:blur(2px)}
 .section:nth-child(even)::before{background:var(--surface-light)}
 
-/* ── Scroll Reveal ── */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ── Top Nav ── */
-.top-nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  padding:0.6rem 0;transition:all 0.35s;
-  background:transparent;
-}
-.top-nav.scrolled{
-  background:rgba(3,11,26,0.88);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border-glow);
-  box-shadow:0 2px 30px rgba(0,0,0,0.5);
-}
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0.6rem 0;transition:all 0.35s;background:transparent}
+.top-nav.scrolled{background:rgba(3,11,26,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glow);box-shadow:0 2px 30px rgba(0,0,0,0.5)}
 .nav-inner{max-width:1080px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{
-  font-family:'Outfit',sans-serif;font-weight:700;font-size:1.2rem;
-  background:linear-gradient(135deg,var(--glow),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  text-shadow:0 0 20px rgba(56,189,248,0.5);
-  transition:opacity 0.3s;
-}
+.nav-logo{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.2rem;background:linear-gradient(135deg,var(--glow),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:0 0 20px rgba(56,189,248,0.5)}
 .nav-links{display:flex;gap:1.5rem;list-style:none}
 .nav-links a{color:var(--pearl);font-size:0.88rem;font-weight:500;transition:all 0.2s}
 .nav-links a:hover{color:var(--cyan);text-shadow:0 0 12px rgba(34,211,238,0.5)}
 .nav-toggle{display:none;background:none;border:none;font-size:1.5rem;color:var(--pearl);cursor:pointer}
 
-/* ── Hero ── */
-.hero{
-  position:relative;min-height:100vh;z-index:1;
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;
-}
-.hero-content{position:relative;z-index:2;padding:2rem;max-width:800px}
-.hero-badge{
-  display:inline-block;
-  background:rgba(56,189,248,0.12);backdrop-filter:blur(8px);
-  border:1px solid rgba(56,189,248,0.3);border-radius:30px;
-  padding:0.4rem 1.4rem;font-size:0.8rem;color:var(--pearl);
-  margin-bottom:1.5rem;letter-spacing:0.05em;
-  font-family:'JetBrainsMono',monospace;
-  text-shadow:0 0 10px rgba(186,230,253,0.4);
-  animation:fadeInUp 0.8s ease;
-}
-.hero h1{
-  font-size:3.4rem;margin-bottom:0.7rem;color:var(--white);
-  text-shadow:0 0 40px rgba(56,189,248,0.6),0 0 80px rgba(34,211,238,0.3),0 2px 4px rgba(0,0,0,0.6);
-  animation:fadeInUp 0.8s ease 0.15s both;
-}
-.hero-subtitle{
-  font-family:'JetBrainsMono',"PingFang SC",monospace;font-size:1.1rem;
-  color:var(--cyan);letter-spacing:0.07em;margin-bottom:1.2rem;
-  text-shadow:0 0 15px rgba(34,211,238,0.4);
-  animation:fadeInUp 0.8s ease 0.3s both;
-}
-.hero-desc{color:var(--pearl);font-size:1.05rem;max-width:620px;margin:0 auto 2rem;line-height:1.85;animation:fadeInUp 0.8s ease 0.45s both}
+.hero{position:relative;min-height:100vh;z-index:1;display:flex;align-items:center;justify-content:center;text-align:center}
+.hero-content{position:relative;z-index:2;padding:2rem;max-width:820px}
+.hero-badge{display:inline-block;background:rgba(56,189,248,0.12);backdrop-filter:blur(8px);border:1px solid rgba(56,189,248,0.3);border-radius:30px;padding:0.4rem 1.4rem;font-size:0.8rem;color:var(--pearl);margin-bottom:1.5rem;letter-spacing:0.05em;font-family:'JetBrainsMono',monospace;text-shadow:0 0 10px rgba(186,230,253,0.4);animation:fadeInUp 0.8s ease}
+.hero h1{font-size:3.4rem;margin-bottom:0.7rem;color:var(--white);text-shadow:0 0 40px rgba(56,189,248,0.6),0 0 80px rgba(34,211,238,0.3),0 2px 4px rgba(0,0,0,0.6);animation:fadeInUp 0.8s ease 0.15s both}
+.hero-subtitle{font-family:'JetBrainsMono',"PingFang SC",monospace;font-size:1.1rem;color:var(--cyan);letter-spacing:0.07em;margin-bottom:1.2rem;text-shadow:0 0 15px rgba(34,211,238,0.4);animation:fadeInUp 0.8s ease 0.3s both}
+.hero-desc{color:var(--pearl);font-size:1.05rem;max-width:640px;margin:0 auto 2rem;line-height:1.85;animation:fadeInUp 0.8s ease 0.45s both}
 .hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp 0.8s ease 0.6s both}
-.btn-primary{
-  display:inline-block;cursor:pointer;
-  background:linear-gradient(135deg,var(--cyan),var(--teal));
-  color:var(--abyss);padding:0.9rem 2.4rem;border-radius:8px;
-  font-weight:700;font-size:1rem;letter-spacing:0.03em;
-  transition:all 0.3s;border:none;
-  box-shadow:0 0 25px rgba(34,211,238,0.35);
-}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 40px rgba(34,211,238,0.55);color:var(--abyss)}
-.btn-outline{
-  display:inline-block;cursor:pointer;
-  color:var(--cyan);border:1.5px solid rgba(34,211,238,0.4);
-  padding:0.9rem 2.4rem;border-radius:8px;font-weight:600;font-size:1rem;
-  letter-spacing:0.03em;transition:all 0.3s;background:transparent;
-}
+.btn-primary{display:inline-block;cursor:pointer;background:linear-gradient(135deg,var(--cyan),var(--teal));color:var(--abyss);padding:0.9rem 2.4rem;border-radius:8px;font-weight:700;font-size:1rem;letter-spacing:0.03em;transition:all 0.3s;border:none;box-shadow:0 0 25px rgba(34,211,238,0.35)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 40px rgba(34,211,238,0.55)}
+.btn-outline{display:inline-block;cursor:pointer;color:var(--cyan);border:1.5px solid rgba(34,211,238,0.4);padding:0.9rem 2.4rem;border-radius:8px;font-weight:600;font-size:1rem;letter-spacing:0.03em;transition:all 0.3s;background:transparent}
 .btn-outline:hover{border-color:var(--cyan);background:rgba(34,211,238,0.1);transform:translateY(-3px);box-shadow:0 0 20px rgba(34,211,238,0.3)}
 
-/* ── Animations ── */
 @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulseGlow{0%,100%{box-shadow:0 0 5px var(--cyan)}50%{box-shadow:0 0 20px var(--glow),0 0 40px var(--cyan)}}
 
-/* ── Stats ── */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin:2.5rem 0}
-.stat-card{
-  background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;
-  padding:2rem 1.2rem;text-align:center;backdrop-filter:blur(4px);
-  transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-  position:relative;overflow:hidden;
-}
-.stat-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--cyan),var(--glow),var(--teal));
-  transform:scaleX(0);transition:transform 0.5s ease;
-}
+.stat-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;padding:2rem 1.2rem;text-align:center;backdrop-filter:blur(4px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--glow),var(--teal));transform:scaleX(0);transition:transform 0.5s ease}
 .stat-card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 0 30px rgba(34,211,238,0.2)}
 .stat-card:hover::before{transform:scaleX(1)}
 .stat-num{font-family:'Outfit',sans-serif;font-size:2.5rem;font-weight:700;color:var(--cyan);line-height:1.2;text-shadow:0 0 15px rgba(34,211,238,0.4)}
 .stat-unit{font-size:0.9rem;font-weight:400;color:var(--muted)}
 .stat-label{font-size:0.88rem;color:var(--muted);margin-top:0.4rem}
-.intro-text{max-width:760px;margin:0 auto 1.5rem;text-align:center;font-size:1.02rem;color:var(--pearl)}
+.intro-text{max-width:800px;margin:0 auto 1.5rem;text-align:center;font-size:1.02rem;color:var(--pearl)}
 
-/* ── Mechanism Flow ── */
 .mechanism-flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.5rem;margin:2rem 0}
-.mech-step{
-  background:linear-gradient(135deg,rgba(13,148,136,0.3),rgba(34,211,238,0.2));
-  border:1px solid var(--border-glow);color:var(--cyan);padding:0.7rem 1.2rem;border-radius:8px;
-  font-size:0.9rem;font-weight:600;text-align:center;min-width:80px;
-  transition:all 0.3s;cursor:default;backdrop-filter:blur(4px);
-}
+.mech-step{background:linear-gradient(135deg,rgba(13,148,136,0.3),rgba(34,211,238,0.2));border:1px solid var(--border-glow);color:var(--cyan);padding:0.7rem 1.2rem;border-radius:8px;font-size:0.9rem;font-weight:600;text-align:center;min-width:80px;transition:all 0.3s;cursor:default;backdrop-filter:blur(4px)}
 .mech-step:hover{transform:scale(1.05);border-color:var(--cyan);box-shadow:0 0 20px rgba(34,211,238,0.3)}
 .mech-arrow{color:var(--gold);font-size:1.4rem;font-weight:700;text-shadow:0 0 10px rgba(251,191,36,0.5)}
-.innovation-list{max-width:700px;margin:2rem auto 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center}
-.innovation-list li{
-  background:rgba(8,20,45,0.6);border:1px solid var(--rule);border-radius:20px;
-  padding:0.5rem 1.3rem;font-size:0.9rem;color:var(--pearl);transition:all 0.3s;
-}
+.innovation-list{max-width:760px;margin:2rem auto 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center}
+.innovation-list li{background:rgba(8,20,45,0.6);border:1px solid var(--rule);border-radius:20px;padding:0.5rem 1.3rem;font-size:0.9rem;color:var(--pearl);transition:all 0.3s}
 .innovation-list li:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,0.08);box-shadow:0 0 15px rgba(34,211,238,0.2)}
 
-/* ── Diagram ── */
 .diagram{margin:2rem 0;text-align:center}
 .diagram figcaption{font-size:0.85rem;color:var(--muted);margin-top:1rem}
-.diagram img{border-radius:14px;box-shadow:0 0 30px rgba(34,211,238,0.12);border:1px solid var(--rule)}
+.diagram img{border-radius:14px;box-shadow:0 0 30px rgba(34,211,238,0.12);border:1px solid var(--rule);max-width:100%;height:auto}
 
-/* ── Tech Cards ── */
 .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-.tech-card{
-  background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;
-  padding:2.2rem 1.5rem;backdrop-filter:blur(4px);
-  transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden;
-}
+.tech-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;padding:2.2rem 1.5rem;backdrop-filter:blur(4px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden}
 .tech-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transition:transform 0.5s ease}
 .tech-card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 0 35px rgba(34,211,238,0.2)}
 .tech-card:hover::after{transform:scaleX(1)}
@@ -224,84 +109,56 @@ em{color:var(--gold);font-style:normal}
 .tech-tag{display:inline-block;background:rgba(8,20,45,0.6);padding:0.3rem 0.8rem;border-radius:14px;font-size:0.78rem;color:var(--muted);margin:0.15rem 0.25rem 0.15rem 0;transition:all 0.25s;border:1px solid transparent}
 .tech-tag:hover{background:rgba(34,211,238,0.08);color:var(--cyan);border-color:var(--border-glow)}
 
-/* ── Team ── */
 .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem}
-.member-card{
-  background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;
-  padding:1.8rem 1rem;text-align:center;backdrop-filter:blur(4px);
-  transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden;
-}
+.member-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;padding:1.5rem 1rem;text-align:center;backdrop-filter:blur(4px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden}
 .member-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--glow));transform:scaleX(0);transition:transform 0.5s ease}
 .member-card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 0 30px rgba(34,211,238,0.2)}
 .member-card:hover::before{transform:scaleX(1)}
-.member-avatar{width:80px;height:80px;border-radius:50%;margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:700;color:#fff;transition:transform 0.4s,box-shadow 0.4s;box-shadow:0 0 25px rgba(56,189,248,0.2)}
-.member-card:hover .member-avatar{transform:scale(1.1);box-shadow:0 0 40px rgba(56,189,248,0.5)}
+.member-photo{width:90px;height:90px;border-radius:50%;margin:0 auto 0.75rem;object-fit:cover;display:block;border:2px solid var(--border-glow);transition:all 0.4s;box-shadow:0 0 25px rgba(56,189,248,0.2)}
+.member-card:hover .member-photo{transform:scale(1.08);box-shadow:0 0 40px rgba(56,189,248,0.5);border-color:var(--cyan)}
+.member-avatar-placeholder{width:90px;height:90px;border-radius:50%;margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:700;color:#fff;transition:transform 0.4s,box-shadow 0.4s;box-shadow:0 0 25px rgba(56,189,248,0.2)}
+.member-card:hover .member-avatar-placeholder{transform:scale(1.1);box-shadow:0 0 40px rgba(56,189,248,0.5)}
 .member-card h4{font-size:1.05rem;margin-bottom:0.2rem;color:var(--white)}
 .member-role{font-size:0.8rem;color:var(--cyan);font-weight:600;margin-bottom:0.5rem;text-shadow:0 0 10px rgba(34,211,238,0.3)}
 .member-desc{font-size:0.82rem;color:var(--muted);line-height:1.5}
 
-/* ── IoT ── */
-.iot-layers{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:2rem 0}
-.iot-layer{
-  background:var(--surface);border:1px solid var(--border-glow);border-radius:12px;
-  padding:1.6rem 1rem;text-align:center;transition:all 0.35s;backdrop-filter:blur(4px);
-}
-.iot-layer:hover{transform:translateY(-5px);border-color:var(--cyan);box-shadow:0 0 25px rgba(34,211,238,0.2)}
-.iot-layer .layer-num{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:700;color:var(--cyan);text-shadow:0 0 15px rgba(34,211,238,0.4)}
-.iot-layer h4{font-size:0.95rem;margin:0.5rem 0;color:var(--white)}
-.iot-layer p{font-size:0.82rem;color:var(--muted);line-height:1.5}
+.fusion-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0}
+.fusion-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;padding:1.8rem 1.3rem;backdrop-filter:blur(4px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);text-align:center}
+.fusion-card:hover{transform:translateY(-5px);border-color:var(--cyan);box-shadow:0 0 30px rgba(34,211,238,0.2)}
+.fusion-card .fusion-icon{font-size:2.2rem;margin-bottom:0.8rem}
+.fusion-card h4{font-size:1rem;margin-bottom:0.5rem;color:var(--white)}
+.fusion-card p{font-size:0.85rem;color:var(--muted);line-height:1.6}
 
-/* ── Gallery ── */
 .gallery-img{border-radius:14px;box-shadow:0 0 35px rgba(34,211,238,0.15);border:1px solid var(--rule);max-width:100%;height:auto;transition:all 0.5s ease}
 .gallery-img:hover{transform:scale(1.02);box-shadow:0 0 50px rgba(34,211,238,0.3);border-color:var(--cyan)}
 
-/* ── Footer ── */
-.footer{
-  position:relative;z-index:1;
-  background:linear-gradient(180deg,var(--abyss) 0%,#010812 100%);
-  color:var(--pearl);padding:3.5rem 0 1.5rem;text-align:center;
-  border-top:1px solid var(--border-glow);
-}
+.footer{position:relative;z-index:1;background:linear-gradient(180deg,var(--abyss) 0%,#010812 100%);color:var(--pearl);padding:3.5rem 0 1.5rem;text-align:center;border-top:1px solid var(--border-glow)}
 .footer h2{background:linear-gradient(135deg,var(--glow),var(--pearl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .footer a{color:var(--cyan)}
 .footer-info{display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:center;margin-bottom:2rem;font-size:0.95rem}
 .footer-item{display:flex;align-items:center;gap:0.4rem}
 .footer-credit{font-size:0.82rem;color:var(--muted)}
 .footer-copy{font-size:0.82rem;color:#456;border-top:1px solid rgba(56,189,248,0.1);padding-top:1.5rem;margin-top:1.5rem}
-
-/* ── Teaching badge ── */
 .advisor-text{color:var(--muted);text-align:center;margin-top:-1.2rem;margin-bottom:2rem}
 .advisor-text strong{color:var(--gold);text-shadow:0 0 10px rgba(251,191,36,0.3)}
 
-/* ── Responsive ── */
 @media(max-width:768px){
-  h1{font-size:2rem}.hero h1{font-size:2rem}
-  h2{font-size:1.5rem}.section{padding:3.5rem 0}
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .tech-grid{grid-template-columns:1fr}
-  .iot-layers{grid-template-columns:repeat(2,1fr)}
-  .team-grid{grid-template-columns:repeat(2,1fr)}
+  h1{font-size:2rem}.hero h1{font-size:2rem}h2{font-size:1.5rem}.section{padding:3.5rem 0}
+  .stats-row{grid-template-columns:repeat(2,1fr)}.tech-grid{grid-template-columns:1fr}
+  .fusion-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:repeat(2,1fr)}
   .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(3,11,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glow);padding:1rem 1.5rem;gap:0.75rem}
-  .nav-links.open{display:flex}
-  .nav-toggle{display:block}
-  .mechanism-flow{flex-direction:column}
-  .mech-arrow{transform:rotate(90deg)}
+  .nav-links.open{display:flex}.nav-toggle{display:block}
+  .mechanism-flow{flex-direction:column}.mech-arrow{transform:rotate(90deg)}
 }
 @media(max-width:480px){
-  .stats-row{grid-template-columns:1fr}
-  .team-grid{grid-template-columns:1fr}
-  .iot-layers{grid-template-columns:1fr}
-  .innovation-list{flex-direction:column;align-items:center}
-  .hero-actions{flex-direction:column;align-items:center}
+  .stats-row{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}
+  .innovation-list{flex-direction:column;align-items:center}.hero-actions{flex-direction:column;align-items:center}
 }
 @media print{
   #bg-canvas,.top-nav,.btn-primary,.btn-outline{display:none}
   body,.section,.footer{background:#fff!important;color:#111}
-  .hero{min-height:auto;padding:3rem 0}
-  .hero h1{color:#111;text-shadow:none}
-  h2{color:#111;-webkit-text-fill-color:#111}
-  .section{padding:2rem 0;page-break-inside:avoid}
-  .section::before{background:none}
+  .hero{min-height:auto;padding:3rem 0}.hero h1{color:#111;text-shadow:none}
+  h2{color:#111;-webkit-text-fill-color:#111}.section{padding:2rem 0;page-break-inside:avoid}.section::before{background:none}
 }
 </style>
 </head>
@@ -320,7 +177,7 @@ em{color:var(--gold);font-style:normal}
       <li><a href="#architecture">系统架构</a></li>
       <li><a href="#tech">核心技术</a></li>
       <li><a href="#gallery">机器实物</a></li>
-      <li><a href="#iot">物联网架构</a></li>
+      <li><a href="#fusion">多传感融合</a></li>
       <li><a href="#team">团队成员</a></li>
       <li><a href="#contact">联系我们</a></li>
     </ul>
@@ -330,10 +187,10 @@ em{color:var(--gold);font-style:normal}
 <!-- ===== [1] Hero ===== -->
 <section class="hero" id="hero">
   <div class="hero-content">
-    <div class="hero-badge">&#9670; 皇家蚝 Royalty Oyster · 广州大学</div>
-    <h1>全自动生蚝开壳取肉机</h1>
-    <p class="hero-subtitle">限位扩缝 &times; 水平翻转 &times; 夹持开壳 &times; 翻转取肉</p>
-    <p class="hero-desc">集机械结构、嵌入式控制、计算机视觉与物联网技术于一体的全流程自动化加工设备。实现<em>"扩缝—定向—夹持—开壳—取肉"</em>五大工序全自动连续作业。</p>
+    <div class="hero-badge">&#9670; 皇家蚝 Royalty Oyster · 广州大学 · 中美青年创客大赛</div>
+    <h1>智启鲜蚝</h1>
+    <p class="hero-subtitle">基于多传感融合的生蚝智能加工装备</p>
+    <p class="hero-desc">集<em>限位扩缝、水平翻转、红外推送、夹持开壳、翻转取肉</em>五大机构与多传感融合系统于一体。以YOLOv8-seg像素级视觉识别、光谱分级、PID闭环控制为核心，实现<em>"扩缝→定向→夹持→开壳→取肉"</em>全流程自动化作业。</p>
     <div class="hero-actions">
       <a href="#intro" class="btn-primary">&#9660; 探索项目</a>
       <a href="#tech" class="btn-outline">核心技术</a>
@@ -346,11 +203,11 @@ em{color:var(--gold);font-style:normal}
   <div class="container">
     <h2>项目概述</h2>
     <div class="reveal">
-      <p class="intro-text">生蚝被誉为<em>"海中牛奶"</em>，2024年中国牡蛎养殖产量已超<strong>677 万吨</strong>，但开壳取肉仍是产业链中<strong>劳动强度最大、自动化程度最低</strong>的核心环节。传统人工撬壳效率极低、安全风险高、用工成本占 40% 以上。本团队设计制造的全自动生蚝开壳取肉机，通过<strong>限位扩缝、水平翻转、红外推送、夹持开壳、翻转取肉</strong>五大机构与视觉/电控系统协同，实现了<strong>从入料到取肉弃壳的全流程自动化作业</strong>。</p>
+      <p class="intro-text">生蚝被誉为<em>"海中牛奶"</em>，2024年中国牡蛎养殖产量已超<strong>677 万吨</strong>，全国水产加工企业约<strong>9500 家</strong>。然而开壳取肉仍是产业链中<strong>劳动强度最大、自动化程度最低</strong>的核心环节——人工撬壳效率低、安全风险高、用工成本占总成本 40% 以上。现有设备多利用高温高压技术，难以保证生蚝风味；或功能单一、自动化程度不足。本团队设计的<strong>智启鲜蚝</strong>智能加工装备，通过<strong>限位扩缝、水平翻转、红外推送、夹持开壳、翻转取肉</strong>五大机构与多传感融合系统协同，实现了<strong>从入料到取肉弃壳的全流程自动化作业</strong>，并集成光谱检测实现蚝肉新鲜度在线分级。</p>
     </div>
 
     <div class="stats-row">
-      <div class="stat-card reveal"><div class="stat-num">500<span class="stat-unit"> kg/天</span></div><div class="stat-label">单台日产蚝肉</div></div>
+      <div class="stat-card reveal"><div class="stat-num">300<span class="stat-unit"> kg/天</span></div><div class="stat-label">单台日产蚝肉</div></div>
       <div class="stat-card reveal"><div class="stat-num">95<span class="stat-unit">%+</span></div><div class="stat-label">头尾识别准确率</div></div>
       <div class="stat-card reveal"><div class="stat-num">&lt;2<span class="stat-unit"> mm</span></div><div class="stat-label">取肉定位误差</div></div>
       <div class="stat-card reveal"><div class="stat-num">5~8<span class="stat-unit"> 人</span></div><div class="stat-label">可替代熟练工人</div></div>
@@ -368,12 +225,11 @@ em{color:var(--gold);font-style:normal}
     <h3>核心创新点</h3>
     <ul class="innovation-list reveal">
       <li>斜面自适应分型虎钳</li>
-      <li>四杆+杠杆 10:1 力放大</li>
+      <li>四杆复合机构 10:1 力放大</li>
       <li>YOLOv8-seg 头尾智能判别</li>
-      <li>"顶松—夹取"柔性取肉</li>
+      <li>"抬升—夹取"柔性取肉</li>
       <li>光谱分析在线品质分级</li>
-      <li>物联网四层协同架构</li>
-      <li>数字孪生虚拟调试</li>
+      <li>全流程自动化闭环控制</li>
     </ul>
   </div>
 </section>
@@ -383,8 +239,8 @@ em{color:var(--gold);font-style:normal}
   <div class="container">
     <h2>系统架构</h2>
     <figure class="diagram reveal">
-      <img src="assets/architecture-diagram.png" alt="全自动生蚝开壳取肉机系统架构图" style="max-width:100%;height:auto;border-radius:14px;box-shadow:0 0 35px rgba(34,211,238,0.15);border:1px solid var(--rule);">
-      <figcaption>图 1：全自动生蚝开壳取肉机系统架构 — 机械执行、嵌入式控制、视觉感知、物联网通信四层协同</figcaption>
+      <img src="assets/architecture-diagram.png" alt="智启鲜蚝系统架构图">
+      <figcaption>图 1：智启鲜蚝系统架构 — 机械执行、嵌入式控制、视觉与光谱感知、多传感融合协同</figcaption>
     </figure>
   </div>
 </section>
@@ -394,37 +250,36 @@ em{color:var(--gold);font-style:normal}
   <div class="container">
     <h2>核心技术</h2>
     <div class="tech-grid">
-
       <div class="tech-card mech reveal">
         <div class="tech-icon mech">&#9881;</div>
         <h3>机械结构设计</h3>
         <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">SolidWorks · ANSYS 有限元 · 3D打印+CNC</p>
         <div>
           <span class="tech-tag">限位扩缝机构</span><span class="tech-tag">斜面分型虎钳</span>
-          <span class="tech-tag">四杆+杠杆 10:1</span><span class="tech-tag">最大推力 212N</span><span class="tech-tag">翻转取肉三自由度</span>
+          <span class="tech-tag">四杆复合机构 10:1</span><span class="tech-tag">正反牙梯形丝杠</span>
+          <span class="tech-tag">翻转取肉三自由度</span><span class="tech-tag">最大推力 212N</span>
         </div>
       </div>
-
       <div class="tech-card elec reveal">
         <div class="tech-icon elec">&#9889;</div>
         <h3>嵌入式控制系统</h3>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">STM32F407VET6 · Keil5 · 自研四层PCB</p>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">STM32F407VET6 · Keil5 · FOC闭环驱动</p>
         <div>
-          <span class="tech-tag">FOC 矢量闭环驱动</span><span class="tech-tag">PID 夹持力控制</span>
-          <span class="tech-tag">Modbus-RTU 通信</span><span class="tech-tag">TPS5430 电源管理</span><span class="tech-tag">HMI 触摸屏监控</span>
+          <span class="tech-tag">168MHz 浮点运算</span><span class="tech-tag">FOC 矢量闭环 0.08°</span>
+          <span class="tech-tag">PID 夹持力控制</span><span class="tech-tag">TPS5430 电源管理</span>
+          <span class="tech-tag">HMI 触摸屏监控</span><span class="tech-tag">多传感器反馈闭环</span>
         </div>
       </div>
-
       <div class="tech-card vision reveal">
         <div class="tech-icon vision">&#128247;</div>
         <h3>视觉与感知</h3>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">YOLOv8-seg · OpenCV · 光谱分析</p>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">YOLOv8-seg · OpenCV · Raspberry Pi AI Camera</p>
         <div>
           <span class="tech-tag">掩码短边头尾判别</span><span class="tech-tag">三类别目标检测</span>
-          <span class="tech-tag">光谱新鲜度分级</span><span class="tech-tag">AI Camera IMX500</span><span class="tech-tag">数字孪生 NX MCD</span>
+          <span class="tech-tag">IMX500 AI Camera</span><span class="tech-tag">工业相机 60fps</span>
+          <span class="tech-tag">光谱新鲜度分级</span><span class="tech-tag">自建生蚝数据集</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -434,24 +289,35 @@ em{color:var(--gold);font-style:normal}
   <div class="container">
     <h2>机器实物</h2>
     <div class="reveal" style="text-align:center;">
-      <img src="assets/machine-photo.png" alt="全自动生蚝开壳取肉机实物图" class="gallery-img">
-      <p style="margin-top:1rem;font-size:0.9rem;color:var(--muted);">图：全自动生蚝开壳取肉机实物整体</p>
+      <img src="assets/machine-photo.png" alt="智启鲜蚝智能加工装备实物图" class="gallery-img">
+      <p style="margin-top:1rem;font-size:0.9rem;color:var(--muted);">图：智启鲜蚝——基于多传感融合的生蚝智能加工装备实物整体</p>
     </div>
   </div>
 </section>
 
-<!-- ===== [6] 物联网架构 ===== -->
-<section class="section" id="iot">
+<!-- ===== [6] 多传感融合 ===== -->
+<section class="section" id="fusion">
   <div class="container">
-    <h2>物联网四层架构</h2>
+    <h2>多传感融合系统</h2>
     <div class="reveal" style="text-align:center;max-width:760px;margin:0 auto 2rem;">
-      <p style="color:var(--muted);">系统采用<em>"感知—传输—控制—执行"</em>四层物联网架构，通过 Modbus-RTU / WiFi / 蓝牙异构通信实现端云协同，搭建数字孪生平台实现加工流程可视化与远程监控。</p>
+      <p style="color:var(--muted);">本产品搭载<em>两套视觉识别系统</em>和<em>一套光谱分析系统</em>，形成"视觉引导 + 光谱分级 + 闭环控制"的多传感融合架构，实现从加工控制到品质检测的完整闭环。</p>
     </div>
-    <div class="iot-layers">
-      <div class="iot-layer reveal"><div class="layer-num">&#8544;</div><h4>感知层</h4><p>工业相机 · AI Camera<br>红外 · 编码器 · 光谱仪<br>多模态数据采集</p></div>
-      <div class="iot-layer reveal"><div class="layer-num">&#8545;</div><h4>网络层</h4><p>Modbus-RTU 有线<br>WiFi + 蓝牙 无线<br>ESP32-S3 调试</p></div>
-      <div class="iot-layer reveal"><div class="layer-num">&#8546;</div><h4>应用层</h4><p>STM32F407 主控<br>树莓派 4B 边缘计算<br>Unity 数字孪生</p></div>
-      <div class="iot-layer reveal"><div class="layer-num">&#8547;</div><h4>执行层</h4><p>五大执行机构<br>步进/伺服/舵机<br>闭环智能控制</p></div>
+    <div class="fusion-grid">
+      <div class="fusion-card reveal">
+        <div class="fusion-icon">&#128065;</div>
+        <h4>双路视觉系统</h4>
+        <p>Raspberry Pi AI Camera（IMX500）负责水平翻转阶段的头尾朝向判别与尺寸分级；芯视科技工业摄像头（200万像素、60fps全局快门）负责取肉阶段的"外壳-内壳-肉"三类别目标检测。</p>
+      </div>
+      <div class="fusion-card reveal">
+        <div class="fusion-icon">&#128300;</div>
+        <h4>光谱品质分级</h4>
+        <p>集成光谱检测黑箱，经SNV、MSC、SG平滑等预处理建立多元线性回归模型。利用640–720nm波段红光吸收率差异及750nm O-H键特征峰变化，实现生蚝新鲜度在线判别。</p>
+      </div>
+      <div class="fusion-card reveal">
+        <div class="fusion-icon">&#9889;</div>
+        <h4>闭环智能控制</h4>
+        <p>STM32F407VET6主控构建"指令下达→动作执行→状态反馈→决策调整"闭环控制逻辑。多传感器实时反馈协调五大机构按预设时序平稳运行，HMI触摸屏实现生产数据实时监控。</p>
+      </div>
     </div>
   </div>
 </section>
@@ -460,16 +326,43 @@ em{color:var(--gold);font-style:normal}
 <section class="section" id="team">
   <div class="container">
     <h2>团队成员</h2>
-    <p class="advisor-text">指导老师：<strong>李东炜</strong>、<strong>邹涛</strong> &nbsp;|&nbsp; 广州大学 · 机械与电气工程学院</p>
+    <p class="advisor-text">指导老师：<strong>李东炜</strong> &nbsp;|&nbsp; 广州大学 · 机械与电气工程学院 &nbsp;|&nbsp; 中美青年创客大赛</p>
     <div class="team-grid">
-      <div class="member-card reveal"><div class="member-avatar" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);box-shadow:0 0 30px rgba(59,130,246,0.35)">刘</div><h4>刘文轩</h4><div class="member-role">项目负责人</div><div class="member-desc">统筹项目进度、系统集成与竞赛申报</div></div>
-      <div class="member-card reveal"><div class="member-avatar" style="background:linear-gradient(135deg,#166534,#22c55e);box-shadow:0 0 30px rgba(34,197,94,0.35)">罗</div><h4>罗泽宇</h4><div class="member-role">机械结构设计</div><div class="member-desc">SolidWorks建模、五大机构设计<br>ANSYS 有限元仿真分析</div></div>
-      <div class="member-card reveal"><div class="member-avatar" style="background:linear-gradient(135deg,#15803d,#4ade80);box-shadow:0 0 30px rgba(74,222,128,0.35)">方</div><h4>方梓铨</h4><div class="member-role">嵌入式电控开发</div><div class="member-desc">STM32主控编程、电机驱动<br>PID控制、四层PCB设计</div></div>
-      <div class="member-card reveal"><div class="member-avatar" style="background:linear-gradient(135deg,#9333ea,#a855f7);box-shadow:0 0 30px rgba(168,85,247,0.35)">闵</div><h4>闵洁芸</h4><div class="member-role">计算机视觉算法</div><div class="member-desc">YOLOv8-seg模型训练<br>头尾判别、光谱数据分析</div></div>
-      <div class="member-card reveal"><div class="member-avatar" style="background:linear-gradient(135deg,#b45309,#f59e0b);box-shadow:0 0 30px rgba(245,158,11,0.35)">曾</div><h4>曾中裕</h4><div class="member-role">视觉与系统调试</div><div class="member-desc">OpenCV图像处理<br>数字孪生平台搭建</div></div>
-      <div class="member-card reveal"><div class="member-avatar" style="background:linear-gradient(135deg,#be123c,#fb7185);box-shadow:0 0 30px rgba(251,113,133,0.35)">+</div><h4>更多成员</h4><div class="member-role">硬件电路 · 文档宣传</div><div class="member-desc">PCB Layout · 申报书撰写<br>答辩PPT · 项目摄影</div></div>
-      <div class="member-card reveal"><div class="member-avatar" style="background:linear-gradient(135deg,#0f766e,#2dd4bf);box-shadow:0 0 30px rgba(45,212,191,0.35)">+</div><h4>更多成员</h4><div class="member-role">加工装配 · 测试优化</div><div class="member-desc">3D打印 · 零部件加工<br>设备总装与性能测试</div></div>
-      <div class="member-card reveal"><div class="member-avatar" style="background:linear-gradient(135deg,#0891b2,#22d3ee);box-shadow:0 0 30px rgba(34,211,238,0.35)">+</div><h4>更多成员</h4><div class="member-role">Web开发 · 宣传设计</div><div class="member-desc">皇家蚝团队网站搭建<br>UI设计与品牌形象</div></div>
+      <!-- 1. 欧阳光 -->
+      <div class="member-card reveal">
+        <img class="member-photo" src="assets/member-ouyangguang.png" alt="欧阳光">
+        <h4>欧阳光</h4>
+        <div class="member-role">项目负责人</div>
+        <div class="member-desc">统筹项目进度、系统集成<br>竞赛申报与答辩汇报</div>
+      </div>
+      <!-- 2. 曾中裕 -->
+      <div class="member-card reveal">
+        <img class="member-photo" src="assets/member-zengzhongyu.png" alt="曾中裕">
+        <h4>曾中裕</h4>
+        <div class="member-role">视觉与系统调试</div>
+        <div class="member-desc">OpenCV图像处理<br>数字孪生平台搭建</div>
+      </div>
+      <!-- 3. 方梓铨 -->
+      <div class="member-card reveal">
+        <img class="member-photo" src="assets/member-fangziquan.png" alt="方梓铨">
+        <h4>方梓铨</h4>
+        <div class="member-role">嵌入式电控开发</div>
+        <div class="member-desc">STM32主控编程、电机驱动<br>PID控制、四层PCB设计</div>
+      </div>
+      <!-- 4. 刘文轩 -->
+      <div class="member-card reveal">
+        <img class="member-photo" src="assets/member-liuwenxuan.png" alt="刘文轩">
+        <h4>刘文轩</h4>
+        <div class="member-role">机械结构设计</div>
+        <div class="member-desc">SolidWorks建模、五大机构设计<br>ANSYS 有限元仿真分析</div>
+      </div>
+      <!-- 5. 孙之淮 -->
+      <div class="member-card reveal">
+        <img class="member-photo" src="assets/member-sunzhihuai.png" alt="孙之淮">
+        <h4>孙之淮</h4>
+        <div class="member-role">计算机视觉算法</div>
+        <div class="member-desc">YOLOv8-seg模型训练<br>头尾判别、光谱数据分析</div>
+      </div>
     </div>
   </div>
 </section>
@@ -488,210 +381,56 @@ em{color:var(--gold);font-style:normal}
   </div>
 </footer>
 
-<!-- ===== p5.js: 深海星渊 (Abyssal Nebula) — Full-page interactive background ===== -->
+<!-- ===== p5.js: 深海星渊 ===== -->
 <script>
 (function(){
-  var TOTAL = 800;
-  var particles = [];
-  var mx = 0, my = 0; // mouse position (normalized -1..1)
-
+  var TOTAL=800,particles=[],mx=0,my=0;
   function sketch(p){
     var pg;
-
-    p.setup=function(){
-      var c = p.createCanvas(p.windowWidth, p.windowHeight);
-      c.parent('bg-canvas');
-      pg = p.createGraphics(p.windowWidth, p.windowHeight);
-      initParticles();
-      mx = 0; my = 0;
-    };
-
-    p.windowResized=function(){
-      p.resizeCanvas(p.windowWidth, p.windowHeight);
-      pg = p.createGraphics(p.windowWidth, p.windowHeight);
-      initParticles();
-    };
-
-    p.mouseMoved=function(){
-      mx = p.map(p.mouseX, 0, p.windowWidth, -1, 1);
-      my = p.map(p.mouseY, 0, p.windowHeight, -1, 1);
-    };
-
-    function initParticles(){
-      particles = [];
-      for(var i=0;i<TOTAL;i++){
-        particles.push(new StarParticle());
-      }
-      pg.background(3,11,26);
-    }
-
+    p.setup=function(){var c=p.createCanvas(p.windowWidth,p.windowHeight);c.parent('bg-canvas');pg=p.createGraphics(p.windowWidth,p.windowHeight);initParticles();mx=0;my=0};
+    p.windowResized=function(){p.resizeCanvas(p.windowWidth,p.windowHeight);pg=p.createGraphics(p.windowWidth,p.windowHeight);initParticles()};
+    p.mouseMoved=function(){mx=p.map(p.mouseX,0,p.windowWidth,-1,1);my=p.map(p.mouseY,0,p.windowHeight,-1,1)};
+    function initParticles(){particles=[];for(var i=0;i<TOTAL;i++)particles.push(new StarParticle());pg.background(3,11,26)}
     p.draw=function(){
-      // fade trails
-      pg.noStroke();
-      pg.fill(3,11,26,12);
-      pg.rect(0,0,p.width,p.height);
-
-      // update & draw
-      for(var i=0;i<particles.length;i++){
-        particles[i].update();
-        particles[i].draw(pg);
-      }
-
-      p.clear();
-      p.image(pg,0,0);
+      pg.noStroke();pg.fill(3,11,26,12);pg.rect(0,0,p.width,p.height);
+      for(var i=0;i<particles.length;i++){particles[i].update();particles[i].draw(pg)}
+      p.clear();p.image(pg,0,0)
     };
-
-    // ── StarParticle ──
-    function StarParticle(){
-      this.x = p.random(p.width);
-      this.y = p.random(p.height);
-      this.vx = 0; this.vy = 0;
-      this.size = p.random(0.5, 2.8);
-      this.z = p.random(0.2, 1); // depth: 0=near, 1=far
-      this.life = p.random(100, 600);
-      this.maxLife = this.life;
-      this.birthX = this.x;
-      this.birthY = this.y;
-    }
-
-    StarParticle.prototype.update = function(){
-      this.life--;
-      if(this.life <= 0){
-        // rebirth from edge
-        var edge = p.floor(p.random(4));
-        if(edge===0){this.x=-10;this.y=p.random(p.height)}
-        else if(edge===1){this.x=p.width+10;this.y=p.random(p.height)}
-        else if(edge===2){this.x=p.random(p.width);this.y=-10}
-        else{this.x=p.random(p.width);this.y=p.height+10}
-        this.vx=0;this.vy=0;
-        this.life=p.random(200,800);
-        this.maxLife=this.life;
-        this.size=p.random(0.5,2.8);
-        this.z=p.random(0.2,1);
-        this.birthX=this.x;this.birthY=this.y;
-      }
-
-      // Layer 1: 3D Perlin noise drift
-      var nx = this.x * 0.0015;
-      var ny = this.y * 0.0015;
-      var nz = p.frameCount * 0.00025;
-      var noiseAngle = p.noise(nx, ny, nz) * p.TWO_PI * 4;
-      var noiseStrength = 0.35 * (1 - this.z * 0.6);
-      this.vx += p.cos(noiseAngle) * noiseStrength * 0.06;
-      this.vy += p.sin(noiseAngle) * noiseStrength * 0.06;
-
-      // Layer 2: Mouse gravity / vortex
-      if(mx !== 0 || my !== 0){
-        var dx = this.x - p.width/2;
-        var dy = this.y - p.height/2;
-        var mouseInfluence = p.sqrt(mx*mx + my*my) * 3; // speed-based radius
-        var mxPx = p.width/2 + mx * p.width * 0.35;
-        var myPx = p.height/2 + my * p.height * 0.35;
-        var dmx = mxPx - this.x;
-        var dmy = myPx - this.y;
-        var md = p.sqrt(dmx*dmx + dmy*dmy);
-        var mRadius = 80 + mouseInfluence * 60;
-        if(md < mRadius){
-          var mForce = p.map(md,0,mRadius,2.5,0) * (1.5 - this.z);
-          this.vx += (dmx/md) * mForce * 0.08;
-          this.vy += (dmy/md) * mForce * 0.08;
-          // tangential vortex
-          this.vx += (-dmy/md) * mForce * 0.04;
-          this.vy += (dmx/md) * mForce * 0.04;
-        }
-      }
-
-      // Layer 3: Global Coriolis vortex
-      var cx = p.width/2;
-      var cy = p.height/2;
-      var dx = this.x - cx;
-      var dy = this.y - cy;
-      var dist = p.sqrt(dx*dx+dy*dy);
-      var maxD = p.sqrt(cx*cx+cy*cy);
-      var vortexStrength = p.map(dist, 0, maxD, 0.01, 0.15);
-      var vAngle = p.atan2(dy, dx) + p.HALF_PI;
-      this.vx += p.cos(vAngle) * vortexStrength * 0.03;
-      this.vy += p.sin(vAngle) * vortexStrength * 0.03;
-
-      // damping
-      this.vx *= 0.993;
-      this.vy *= 0.993;
-
-      // speed clamp
-      var s = p.sqrt(this.vx*this.vx + this.vy*this.vy);
-      var ms = 3.5 * (1.5 - this.z * 0.8);
-      if(s > ms){this.vx = (this.vx/s)*ms; this.vy = (this.vy/s)*ms}
-
-      this.x += this.vx;
-      this.y += this.vy;
+    function StarParticle(){this.x=p.random(p.width);this.y=p.random(p.height);this.vx=0;this.vy=0;this.size=p.random(0.5,2.8);this.z=p.random(0.2,1);this.life=p.random(100,600);this.maxLife=this.life}
+    StarParticle.prototype.update=function(){
+      this.life--;if(this.life<=0){var e=p.floor(p.random(4));if(e===0){this.x=-10;this.y=p.random(p.height)}else if(e===1){this.x=p.width+10;this.y=p.random(p.height)}else if(e===2){this.x=p.random(p.width);this.y=-10}else{this.x=p.random(p.width);this.y=p.height+10}this.vx=0;this.vy=0;this.life=p.random(200,800);this.maxLife=this.life;this.size=p.random(0.5,2.8);this.z=p.random(0.2,1)}
+      var nx=this.x*0.0015,ny=this.y*0.0015,nz=p.frameCount*0.00025;
+      var nA=p.noise(nx,ny,nz)*p.TWO_PI*4,nS=0.35*(1-this.z*0.6);
+      this.vx+=p.cos(nA)*nS*0.06;this.vy+=p.sin(nA)*nS*0.06;
+      if(mx!==0||my!==0){var mInf=p.sqrt(mx*mx+my*my)*3,mPx=p.width/2+mx*p.width*0.35,mPy=p.height/2+my*p.height*0.35,dmx=mPx-this.x,dmy=mPy-this.y,md=p.sqrt(dmx*dmx+dmy*dmy),mR=80+mInf*60;if(md<mR){var mF=p.map(md,0,mR,2.5,0)*(1.5-this.z);this.vx+=(dmx/md)*mF*0.08;this.vy+=(dmy/md)*mF*0.08;this.vx+=(-dmy/md)*mF*0.04;this.vy+=(dmx/md)*mF*0.04}}
+      var cx=p.width/2,cy=p.height/2,dx=this.x-cx,dy=this.y-cy,dist=p.sqrt(dx*dx+dy*dy),maxD=p.sqrt(cx*cx+cy*cy),vS=p.map(dist,0,maxD,0.01,0.15),vA=p.atan2(dy,dx)+p.HALF_PI;
+      this.vx+=p.cos(vA)*vS*0.03;this.vy+=p.sin(vA)*vS*0.03;
+      this.vx*=0.993;this.vy*=0.993;
+      var s=p.sqrt(this.vx*this.vx+this.vy*this.vy),ms=3.5*(1.5-this.z*0.8);if(s>ms){this.vx=(this.vx/s)*ms;this.vy=(this.vy/s)*ms}
+      this.x+=this.vx;this.y+=this.vy
     };
-
-    StarParticle.prototype.draw = function(pg){
-      var lifeRatio = this.life / this.maxLife;
-      var speed = p.sqrt(this.vx*this.vx + this.vy*this.vy);
-      var sNorm = p.constrain(speed / 2.5, 0, 1);
-
-      // Color: slow=deep teal, fast=cyan/pearl
-      var r,g,b,a;
-      if(sNorm > 0.6){
-        r = p.lerp(34, 180, sNorm); g = p.lerp(190, 230, sNorm); b = p.lerp(220, 255, sNorm);
-      } else if(sNorm > 0.3){
-        r = p.lerp(8, 34, (sNorm-0.3)/0.3); g = p.lerp(130, 190, (sNorm-0.3)/0.3); b = p.lerp(180, 220, (sNorm-0.3)/0.3);
-      } else {
-        r = p.lerp(3, 8, sNorm/0.3); g = p.lerp(50, 130, sNorm/0.3); b = p.lerp(100, 180, sNorm/0.3);
-      }
-
-      // Alpha: life + depth
-      a = p.map(lifeRatio,0,1,4,90) * (1.3 - this.z * 0.7);
-      a = p.constrain(a, 4, 95);
-
-      // Size: near particles bigger
-      var drawSize = this.size * (1.8 - this.z);
-
-      pg.noStroke();
-      pg.fill(r,g,b,a);
-      pg.ellipse(this.x, this.y, drawSize, drawSize);
-
-      // Occasional glow for fast particles
-      if(sNorm > 0.7 && lifeRatio > 0.3){
-        pg.fill(r,g,b,a*0.25);
-        pg.ellipse(this.x, this.y, drawSize*3.5, drawSize*3.5);
-      }
+    StarParticle.prototype.draw=function(pg){
+      var lR=this.life/this.maxLife,s=p.sqrt(this.vx*this.vx+this.vy*this.vy),sN=p.constrain(s/2.5,0,1);
+      var r,g,b,a;if(sN>0.6){r=p.lerp(34,180,sN);g=p.lerp(190,230,sN);b=p.lerp(220,255,sN)}else if(sN>0.3){r=p.lerp(8,34,(sN-0.3)/0.3);g=p.lerp(130,190,(sN-0.3)/0.3);b=p.lerp(180,220,(sN-0.3)/0.3)}else{r=p.lerp(3,8,sN/0.3);g=p.lerp(50,130,sN/0.3);b=p.lerp(100,180,sN/0.3)}
+      a=p.map(lR,0,1,4,90)*(1.3-this.z*0.7);a=p.constrain(a,4,95);
+      var dS=this.size*(1.8-this.z);
+      pg.noStroke();pg.fill(r,g,b,a);pg.ellipse(this.x,this.y,dS,dS);
+      if(sN>0.7&&lR>0.3){pg.fill(r,g,b,a*0.25);pg.ellipse(this.x,this.y,dS*3.5,dS*3.5)}
     };
   }
-
   new p5(sketch);
 })();
 </script>
 
-<!-- ===== Navigation + Scroll Effects ===== -->
 <script>
 (function(){
-  var toggle=document.getElementById('navToggle');
-  var links=document.getElementById('navLinks');
-  var nav=document.getElementById('topNav');
-
+  var toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks'),nav=document.getElementById('topNav');
   toggle.addEventListener('click',function(){links.classList.toggle('open')});
-  links.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){links.classList.remove('open')});
-  });
-
-  window.addEventListener('scroll',function(){
-    if(window.scrollY>20)nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  });
-
-  // Scroll reveal
+  links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open')})});
+  window.addEventListener('scroll',function(){if(window.scrollY>20)nav.classList.add('scrolled');else nav.classList.remove('scrolled')});
   var reveals=document.querySelectorAll('.reveal');
-  function revealOnScroll(){
-    for(var i=0;i<reveals.length;i++){
-      var el=reveals[i];
-      var top=el.getBoundingClientRect().top;
-      if(top<window.innerHeight-80)el.classList.add('visible');
-    }
-  }
-  window.addEventListener('scroll',revealOnScroll);
-  revealOnScroll();
+  function revealOnScroll(){for(var i=0;i<reveals.length;i++){var el=reveals[i];if(el.getBoundingClientRect().top<window.innerHeight-80)el.classList.add('visible')}}
+  window.addEventListener('scroll',revealOnScroll);revealOnScroll();
 })();
 </script>
 </body>
