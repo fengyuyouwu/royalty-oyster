@@ -127,7 +127,8 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 .fusion-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0}
 .fusion-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;overflow:hidden;backdrop-filter:blur(4px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
 .fusion-card:hover{transform:translateY(-5px);border-color:var(--cyan);box-shadow:0 0 30px rgba(34,211,238,0.2)}
-.fusion-card img{max-width:100%;max-height:190px;object-fit:contain;display:block;background:rgba(3,11,26,0.5);border-bottom:1px solid var(--rule)}
+.fusion-card .img-cell{display:flex;align-items:center;justify-content:center;height:200px;background:rgba(3,11,26,0.5);border-bottom:1px solid var(--rule)}
+.fusion-card .img-cell img{max-width:100%;max-height:190px;object-fit:contain;display:block}
 .fusion-card .fusion-body{padding:1rem 1.2rem}
 .fusion-card h4{font-size:0.95rem;color:var(--white);margin-bottom:0.35rem}
 .fusion-card p{font-size:0.82rem;color:var(--muted);line-height:1.5;margin:0}
@@ -136,7 +137,8 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 .spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0}
 .spec-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;overflow:hidden;backdrop-filter:blur(4px);transition:all 0.4s;cursor:pointer}
 .spec-card:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 0 25px rgba(34,211,238,0.2)}
-.spec-card img{max-width:100%;max-height:190px;object-fit:contain;display:block;background:rgba(3,11,26,0.5)}
+.spec-card .img-cell{display:flex;align-items:center;justify-content:center;height:200px;background:rgba(3,11,26,0.5)}
+.spec-card .img-cell img{max-width:100%;max-height:190px;object-fit:contain;display:block}
 .spec-card .spec-body{padding:0.8rem 1rem}
 .spec-card h4{font-size:0.9rem;color:var(--white);margin-bottom:0.3rem}
 .spec-card p{font-size:0.8rem;color:var(--muted);margin:0}
@@ -166,7 +168,8 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 .patent-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin:2rem 0}
 .patent-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;overflow:hidden;backdrop-filter:blur(4px);transition:all 0.4s}
 .patent-card:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 0 25px rgba(34,211,238,0.2)}
-.patent-card img{max-width:100%;max-height:320px;object-fit:contain;display:block;padding:1rem;background:rgba(3,11,26,0.3);margin:0 auto}
+.patent-card .img-cell{display:flex;align-items:center;justify-content:center;height:340px;background:rgba(3,11,26,0.3)}
+.patent-card .img-cell img{max-width:100%;max-height:320px;object-fit:contain;display:block;padding:1rem}
 .patent-card .patent-body{padding:0.8rem 1.2rem;text-align:center}
 .patent-card h4{font-size:0.9rem;color:var(--white)}
 .patent-card p{font-size:0.78rem;color:var(--muted);margin:0}
@@ -191,7 +194,8 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
   .tech-grid,.fusion-grid,.spec-grid{grid-template-columns:1fr;gap:1rem}
   .patent-grid{grid-template-columns:1fr}
   .mech-slide{flex:0 0 240px}.mech-slide .mech-img-wrap{height:150px}
-  .fusion-card img{max-height:160px}.spec-card img{max-height:160px}
+   .fusion-card .img-cell{height:160px}.spec-card .img-cell{height:160px}.patent-card .img-cell{height:260px}
+   .fusion-card img{max-height:150px}.spec-card img{max-height:150px}.patent-card img{max-height:250px}
   .member-card{flex:0 0 170px;padding:1.2rem 0.8rem}.member-photo{width:65px;height:65px}
   .carousel-wrap::before,.carousel-wrap::after{width:40px}
   .team-carousel-wrap::before,.team-carousel-wrap::after{width:30px}
@@ -337,9 +341,9 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 
     <h3>视觉识别系统</h3>
     <div class="fusion-grid reveal">
-      <div class="fusion-card"><img src="assets/vision-headtail.png" alt="生蚝头尾判断验证图"><div class="fusion-body"><h4>YOLOv8-seg 头尾智能判别</h4><p>掩码短边法精准提取生蚝外壳轮廓特征；结合多区域像素占比分析，实现不规则姿态下的头尾鲁棒性识别，准确率&gt;95%。</p></div></div>
-      <div class="fusion-card"><img src="assets/vision-detect1.png" alt="设备运行时的视觉识别"><div class="fusion-body"><h4>三类别目标检测</h4><p>芯视科技工业摄像头（200万像素、60fps全局快门），YOLOv8n实时检测外壳/内壳/肉三类别，为取肉机构提供精准定位。</p></div></div>
-      <div class="fusion-card"><img src="assets/vision-detect2.png" alt="设备运行时的视觉识别2"><div class="fusion-body"><h4>设备运行实时识别</h4><p>环形光源消除反光阴影，在设备运行状态下持续进行视觉判断，确保加工过程中的实时姿态跟踪与闭环控制。</p></div></div>
+      <div class="fusion-card"><div class="img-cell"><img src="assets/vision-headtail.png" alt="生蚝头尾判断验证图"></div><div class="fusion-body"><h4>YOLOv8-seg 头尾智能判别</h4><p>掩码短边法精准提取生蚝外壳轮廓特征；结合多区域像素占比分析，实现不规则姿态下的头尾鲁棒性识别，准确率&gt;95%。</p></div></div>
+      <div class="fusion-card"><div class="img-cell"><img src="assets/vision-detect1.png" alt="设备运行时的视觉识别"></div><div class="fusion-body"><h4>三类别目标检测</h4><p>芯视科技工业摄像头（200万像素、60fps全局快门），YOLOv8n实时检测外壳/内壳/肉三类别，为取肉机构提供精准定位。</p></div></div>
+      <div class="fusion-card"><div class="img-cell"><img src="assets/vision-detect2.png" alt="设备运行时的视觉识别2"></div><div class="fusion-body"><h4>设备运行实时识别</h4><p>环形光源消除反光阴影，在设备运行状态下持续进行视觉判断，确保加工过程中的实时姿态跟踪与闭环控制。</p></div></div>
     </div>
 
     <h3 style="margin-top:2.5rem;">光谱分析系统</h3>
@@ -347,9 +351,9 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
       <p style="color:var(--muted);">集成光谱检测黑箱，经SNV、MSC、SG平滑等预处理，建立多元线性回归模型。利用640–720nm波段红光吸收率差异及750nm O-H键特征峰变化，实现<strong>生蚝新鲜度在线判别</strong>。</p>
     </div>
     <div class="spec-grid reveal">
-      <div class="spec-card"><img src="assets/spectrum-640-720.png" alt="640-720mm波段下不同新鲜度光强比对"><div class="spec-body"><h4>640–720nm 波段光强比对</h4><p>生蚝变质过程中由乳白变为灰青，红光吸收率更高，G曲线光强高于B曲线。</p></div></div>
-      <div class="spec-card"><img src="assets/spectrum-comparison.png" alt="蚝肉表面平均反射光谱比对图"><div class="spec-body"><h4>蚝肉表面平均反射光谱</h4><p>新鲜生蚝光谱曲线下降较快，反映了完整的生化组分与水分产生的强烈耦合吸收。</p></div></div>
-      <div class="spec-card"><img src="assets/spectrum-fresh1.png" alt="不同新鲜度光谱差距"><div class="spec-body"><h4>可见光域与近红外光谱对比</h4><p>结合水与蛋白质变性导致光谱特征峰差异，为新鲜度分级提供定量依据。</p></div></div>
+      <div class="spec-card"><div class="img-cell"><img src="assets/spectrum-640-720.png" alt="640-720mm波段下不同新鲜度光强比对"></div><div class="spec-body"><h4>640–720nm 波段光强比对</h4><p>生蚝变质过程中由乳白变为灰青，红光吸收率更高，G曲线光强高于B曲线。</p></div></div>
+      <div class="spec-card"><div class="img-cell"><img src="assets/spectrum-comparison.png" alt="蚝肉表面平均反射光谱比对图"></div><div class="spec-body"><h4>蚝肉表面平均反射光谱</h4><p>新鲜生蚝光谱曲线下降较快，反映了完整的生化组分与水分产生的强烈耦合吸收。</p></div></div>
+      <div class="spec-card"><div class="img-cell"><img src="assets/spectrum-fresh1.png" alt="不同新鲜度光谱差距"></div><div class="spec-body"><h4>可见光域与近红外光谱对比</h4><p>结合水与蛋白质变性导致光谱特征峰差异，为新鲜度分级提供定量依据。</p></div></div>
     </div>
   </div>
 </section>
@@ -381,14 +385,14 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
   <div class="container">
     <h2>专利与成果</h2>
     <div class="patent-grid reveal">
-      <div class="patent-card"><img src="assets/patent1.png" alt="相关专利证书1"><div class="patent-body"><h4>发明专利证书</h4><p>本产品已申请专利保护，具有完全自主知识产权</p></div></div>
-      <div class="patent-card"><img src="assets/patent2.png" alt="相关专利证书2"><div class="patent-body"><h4>发明专利证书</h4><p>拟申报2项发明专利，涵盖机构设计与控制系统</p></div></div>
+      <div class="patent-card"><div class="img-cell"><img src="assets/patent1.png" alt="相关专利证书1"></div><div class="patent-body"><h4>发明专利证书</h4><p>本产品已申请专利保护，具有完全自主知识产权</p></div></div>
+      <div class="patent-card"><div class="img-cell"><img src="assets/patent2.png" alt="相关专利证书2"></div><div class="patent-body"><h4>发明专利证书</h4><p>拟申报2项发明专利，涵盖机构设计与控制系统</p></div></div>
     </div>
 
     <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;">
-      <div class="fusion-card"><img src="assets/team-building.png" alt="团队搭建产品实拍"><div class="fusion-body"><h4>团队搭建实拍</h4><p>团队在实验室进行整机装配与联调测试</p></div></div>
-      <div class="fusion-card"><img src="assets/dataset-oyster.png" alt="自制生蚝数据集"><div class="fusion-body"><h4>自制生蚝数据集</h4><p>自建生蚝数据集，环形光源消除反光阴影，为模型训练提供数据基础</p></div></div>
-      <div class="fusion-card"><img src="assets/oyster-anatomy.png" alt="生蚝结构图"><div class="fusion-body"><h4>生蚝结构分析</h4><p>基于生蚝解剖结构设计自适应夹具与开壳参数</p></div></div>
+      <div class="fusion-card"><div class="img-cell"><img src="assets/team-building.png" alt="团队搭建产品实拍"></div><div class="fusion-body"><h4>团队搭建实拍</h4><p>团队在实验室进行整机装配与联调测试</p></div></div>
+      <div class="fusion-card"><div class="img-cell"><img src="assets/dataset-oyster.png" alt="自制生蚝数据集"></div><div class="fusion-body"><h4>自制生蚝数据集</h4><p>自建生蚝数据集，环形光源消除反光阴影，为模型训练提供数据基础</p></div></div>
+      <div class="fusion-card"><div class="img-cell"><img src="assets/oyster-anatomy.png" alt="生蚝结构图"></div><div class="fusion-body"><h4>生蚝结构分析</h4><p>基于生蚝解剖结构设计自适应夹具与开壳参数</p></div></div>
     </div>
   </div>
 </section>
