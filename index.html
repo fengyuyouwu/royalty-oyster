@@ -88,8 +88,9 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 @keyframes scrollTrack{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* ── Mechanism cards ── */
-.mech-slide{flex:0 0 260px;background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;overflow:hidden;cursor:default;transition:all 0.5s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;backdrop-filter:blur(4px)}
-.mech-slide img{width:100%;height:170px;object-fit:cover;display:block;transition:transform 0.6s ease;border-bottom:1px solid var(--rule)}
+.mech-slide{flex:0 0 280px;background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;overflow:hidden;cursor:default;transition:all 0.5s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;backdrop-filter:blur(4px)}
+.mech-slide .mech-img-wrap{width:100%;height:190px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(3,11,26,0.6);border-bottom:1px solid var(--rule)}
+.mech-slide img{max-width:100%;max-height:100%;object-fit:contain;display:block;transition:transform 0.6s ease}
 .mech-slide .mech-label{text-align:center;padding:0.8rem 0.7rem}
 .mech-slide .mech-label .step-num{font-family:'JetBrainsMono',monospace;font-size:0.7rem;color:var(--muted);margin-bottom:0.2rem}
 .mech-slide .mech-label h4{font-size:1rem;color:var(--white)}
@@ -126,7 +127,7 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 .fusion-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0}
 .fusion-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;overflow:hidden;backdrop-filter:blur(4px);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
 .fusion-card:hover{transform:translateY(-5px);border-color:var(--cyan);box-shadow:0 0 30px rgba(34,211,238,0.2)}
-.fusion-card img{width:100%;height:180px;object-fit:cover;display:block;border-bottom:1px solid var(--rule)}
+.fusion-card img{max-width:100%;max-height:190px;object-fit:contain;display:block;background:rgba(3,11,26,0.5);border-bottom:1px solid var(--rule)}
 .fusion-card .fusion-body{padding:1rem 1.2rem}
 .fusion-card h4{font-size:0.95rem;color:var(--white);margin-bottom:0.35rem}
 .fusion-card p{font-size:0.82rem;color:var(--muted);line-height:1.5;margin:0}
@@ -135,7 +136,7 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 .spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0}
 .spec-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;overflow:hidden;backdrop-filter:blur(4px);transition:all 0.4s;cursor:pointer}
 .spec-card:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 0 25px rgba(34,211,238,0.2)}
-.spec-card img{width:100%;height:180px;object-fit:cover;display:block}
+.spec-card img{max-width:100%;max-height:190px;object-fit:contain;display:block;background:rgba(3,11,26,0.5)}
 .spec-card .spec-body{padding:0.8rem 1rem}
 .spec-card h4{font-size:0.9rem;color:var(--white);margin-bottom:0.3rem}
 .spec-card p{font-size:0.8rem;color:var(--muted);margin:0}
@@ -165,7 +166,7 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 .patent-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin:2rem 0}
 .patent-card{background:var(--surface);border:1px solid var(--border-glow);border-radius:14px;overflow:hidden;backdrop-filter:blur(4px);transition:all 0.4s}
 .patent-card:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 0 25px rgba(34,211,238,0.2)}
-.patent-card img{width:100%;height:300px;object-fit:contain;display:block;padding:1rem;background:rgba(3,11,26,0.3)}
+.patent-card img{max-width:100%;max-height:320px;object-fit:contain;display:block;padding:1rem;background:rgba(3,11,26,0.3);margin:0 auto}
 .patent-card .patent-body{padding:0.8rem 1.2rem;text-align:center}
 .patent-card h4{font-size:0.9rem;color:var(--white)}
 .patent-card p{font-size:0.78rem;color:var(--muted);margin:0}
@@ -182,16 +183,31 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
 .advisor-text strong{color:var(--gold);text-shadow:0 0 10px rgba(251,191,36,0.3)}
 
 @media(max-width:768px){
-  h1{font-size:2rem}.hero h1{font-size:2rem}h2{font-size:1.5rem}.section{padding:3.5rem 0}
-  .stats-row{grid-template-columns:repeat(2,1fr)}.tech-grid,.fusion-grid,.spec-grid{grid-template-columns:1fr}
+  h1{font-size:1.7rem}.hero h1{font-size:1.8rem}h2{font-size:1.4rem}.section{padding:3rem 0}
+  .container{padding:0 1rem}
+  .stats-row{grid-template-columns:repeat(2,1fr);gap:0.8rem}
+  .stat-card{padding:1.4rem 0.8rem}
+  .stat-num{font-size:2rem}
+  .tech-grid,.fusion-grid,.spec-grid{grid-template-columns:1fr;gap:1rem}
   .patent-grid{grid-template-columns:1fr}
-  .mech-slide{flex:0 0 220px}.member-card{flex:0 0 180px}
-  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(3,11,26,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glow);padding:1rem 1.5rem;gap:0.75rem}
+  .mech-slide{flex:0 0 240px}.mech-slide .mech-img-wrap{height:150px}
+  .fusion-card img{max-height:160px}.spec-card img{max-height:160px}
+  .member-card{flex:0 0 170px;padding:1.2rem 0.8rem}.member-photo{width:65px;height:65px}
+  .carousel-wrap::before,.carousel-wrap::after{width:40px}
+  .team-carousel-wrap::before,.team-carousel-wrap::after{width:30px}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(3,11,26,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-glow);padding:1rem 1.5rem;gap:0.75rem}
   .nav-links.open{display:flex}.nav-toggle{display:block}
+  .hero-content{padding:1.5rem}.hero-desc{font-size:0.95rem}
+  .diagram img{border-radius:8px}
 }
 @media(max-width:480px){
-  .stats-row{grid-template-columns:1fr}.mech-slide{flex:0 0 200px}.member-card{flex:0 0 160px}
+  h1{font-size:1.5rem}.hero h1{font-size:1.6rem}h2{font-size:1.25rem}
+  .stats-row{grid-template-columns:1fr}.mech-slide{flex:0 0 200px}.mech-slide .mech-img-wrap{height:130px}
+  .member-card{flex:0 0 150px}
   .hero-actions{flex-direction:column;align-items:center}
+  .btn-primary,.btn-outline{padding:0.7rem 1.8rem;font-size:0.9rem}
+  .carousel-wrap::before,.carousel-wrap::after{width:25px}
+  .section{padding:2.5rem 0}
 }
 @media print{
   #bg-canvas,.top-nav,.btn-primary,.btn-outline{display:none}
@@ -258,43 +274,19 @@ strong{color:var(--white);font-weight:700}em{color:var(--gold);font-style:normal
       <div class="carousel-wrap">
         <div class="carousel-track">
           <!-- set 1 -->
-          <div class="mech-slide">
-            <img src="assets/mech-slot.png" alt="限位扩缝机构">
-            <div class="mech-label"><div class="step-num">工序 ①</div><h4>限位扩缝</h4></div>
-            <div class="mech-detail"><h4>限位扩缝机构</h4><p>限位盒对随机姿态的生蚝进行初步定位，舵机控制挡板，电机通过同步带驱动圆锯（3000rpm）横向切割扩大壳口，完毕后圆锯复位，生蚝下落至传送带。</p></div>
-          </div>
-          <div class="mech-slide">
-            <img src="assets/mech-flip.png" alt="水平翻转机构">
-            <div class="mech-label"><div class="step-num">工序 ②</div><h4>水平翻转</h4></div>
-            <div class="mech-detail"><h4>水平翻转机构</h4><p>树莓派AI Camera（IMX500）采集生蚝图像，YOLOv8-seg通过"掩码短边法"判定头尾方向。齿轮齿条推杆配合传送带摩擦，使生蚝旋转90°校正姿态，统一朝向下游工序。</p></div>
-          </div>
-          <div class="mech-slide">
-            <img src="assets/mech-push.png" alt="红外推送机构">
-            <div class="mech-label"><div class="step-num">工序 ③</div><h4>红外推送</h4></div>
-            <div class="mech-detail"><h4>红外推送机构</h4><p>红外传感器检测到生蚝到达后触发信号，停止传送带。齿轮齿条推杆以恒定速度将生蚝精准推送至夹持机构中心位置，为后续开壳工序做好准备。</p></div>
-          </div>
-          <div class="mech-slide">
-            <img src="assets/mech-open.png" alt="夹持开壳机构">
-            <div class="mech-label"><div class="step-num">工序 ④</div><h4>夹持开壳</h4></div>
-            <div class="mech-detail"><h4>夹持开壳机构</h4><p>分型虎钳通过正反牙梯形丝杠双向对中夹紧，斜面产生下压力抑制滑脱。四杆复合机构实现约10:1力放大（最大推力212N），平稳撬开蚝壳。推壳机构旋转弃去无肉端蚝壳。</p></div>
-          </div>
-          <div class="mech-slide">
-            <img src="assets/mech-rotate.png" alt="翻转取肉机构">
-            <div class="mech-label"><div class="step-num">工序 ⑤</div><h4>翻转取肉</h4></div>
-            <div class="mech-detail"><h4>翻转取肉机构</h4><p>U型翻转盒自适应夹持半壳生蚝，30°预翻转使蚝壳顶靠末端。多光谱成像识别蚝肉朝上后完成180°翻转。升降夹爪"先抬升—后夹取"，双刀协同完成无损取肉，最后弃壳出料。</p></div>
-          </div>
-          <div class="mech-slide">
-            <img src="assets/mech-lift.png" alt="升降取肉机构">
-            <div class="mech-label"><div class="step-num">+</div><h4>升降取肉</h4></div>
-            <div class="mech-detail"><h4>升降取肉机构</h4><p>经翻转盒翻转后，视觉系统识别蚝肉位置。升降机构带动夹爪上升至蚝肉附近，夹爪合拢破坏闭壳肌附着后夹持提取，定位误差&lt;2mm，保持蚝肉完整性。</p></div>
-          </div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-slot.png" alt="限位扩缝机构"></div><div class="mech-label"><div class="step-num">工序 ①</div><h4>限位扩缝</h4></div><div class="mech-detail"><h4>限位扩缝机构</h4><p>限位盒对随机姿态的生蚝进行初步定位，舵机控制挡板，电机通过同步带驱动圆锯（3000rpm）横向切割扩大壳口，完毕后圆锯复位，生蚝下落至传送带。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-flip.png" alt="水平翻转机构"></div><div class="mech-label"><div class="step-num">工序 ②</div><h4>水平翻转</h4></div><div class="mech-detail"><h4>水平翻转机构</h4><p>树莓派AI Camera（IMX500）采集生蚝图像，YOLOv8-seg通过"掩码短边法"判定头尾方向。齿轮齿条推杆配合传送带摩擦，使生蚝旋转90°校正姿态，统一朝向下游工序。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-push.png" alt="红外推送机构"></div><div class="mech-label"><div class="step-num">工序 ③</div><h4>红外推送</h4></div><div class="mech-detail"><h4>红外推送机构</h4><p>红外传感器检测到生蚝到达后触发信号，停止传送带。齿轮齿条推杆以恒定速度将生蚝精准推送至夹持机构中心位置，为后续开壳工序做好准备。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-open.png" alt="夹持开壳机构"></div><div class="mech-label"><div class="step-num">工序 ④</div><h4>夹持开壳</h4></div><div class="mech-detail"><h4>夹持开壳机构</h4><p>分型虎钳通过正反牙梯形丝杠双向对中夹紧，斜面产生下压力抑制滑脱。四杆复合机构实现约10:1力放大（最大推力212N），平稳撬开蚝壳。推壳机构旋转弃去无肉端蚝壳。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-rotate.png" alt="翻转取肉机构"></div><div class="mech-label"><div class="step-num">工序 ⑤</div><h4>翻转取肉</h4></div><div class="mech-detail"><h4>翻转取肉机构</h4><p>U型翻转盒自适应夹持半壳生蚝，30°预翻转使蚝壳顶靠末端。多光谱成像识别蚝肉朝上后完成180°翻转。升降夹爪"先抬升—后夹取"，双刀协同完成无损取肉，最后弃壳出料。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-lift.png" alt="升降取肉机构"></div><div class="mech-label"><div class="step-num">+</div><h4>升降取肉</h4></div><div class="mech-detail"><h4>升降取肉机构</h4><p>经翻转盒翻转后，视觉系统识别蚝肉位置。升降机构带动夹爪上升至蚝肉附近，夹爪合拢破坏闭壳肌附着后夹持提取，定位误差&lt;2mm，保持蚝肉完整性。</p></div></div>
           <!-- set 2 -->
-          <div class="mech-slide"><img src="assets/mech-slot.png" alt="限位扩缝机构"><div class="mech-label"><div class="step-num">工序 ①</div><h4>限位扩缝</h4></div><div class="mech-detail"><h4>限位扩缝机构</h4><p>限位盒对随机姿态的生蚝进行初步定位，舵机控制挡板，电机通过同步带驱动圆锯（3000rpm）横向切割扩大壳口，完毕后圆锯复位，生蚝下落至传送带。</p></div></div>
-          <div class="mech-slide"><img src="assets/mech-flip.png" alt="水平翻转机构"><div class="mech-label"><div class="step-num">工序 ②</div><h4>水平翻转</h4></div><div class="mech-detail"><h4>水平翻转机构</h4><p>树莓派AI Camera（IMX500）采集生蚝图像，YOLOv8-seg通过"掩码短边法"判定头尾方向。齿轮齿条推杆配合传送带摩擦，使生蚝旋转90°校正姿态，统一朝向下游工序。</p></div></div>
-          <div class="mech-slide"><img src="assets/mech-push.png" alt="红外推送机构"><div class="mech-label"><div class="step-num">工序 ③</div><h4>红外推送</h4></div><div class="mech-detail"><h4>红外推送机构</h4><p>红外传感器检测到生蚝到达后触发信号，停止传送带。齿轮齿条推杆以恒定速度将生蚝精准推送至夹持机构中心位置，为后续开壳工序做好准备。</p></div></div>
-          <div class="mech-slide"><img src="assets/mech-open.png" alt="夹持开壳机构"><div class="mech-label"><div class="step-num">工序 ④</div><h4>夹持开壳</h4></div><div class="mech-detail"><h4>夹持开壳机构</h4><p>分型虎钳通过正反牙梯形丝杠双向对中夹紧，斜面产生下压力抑制滑脱。四杆复合机构实现约10:1力放大（最大推力212N），平稳撬开蚝壳。推壳机构旋转弃去无肉端蚝壳。</p></div></div>
-          <div class="mech-slide"><img src="assets/mech-rotate.png" alt="翻转取肉机构"><div class="mech-label"><div class="step-num">工序 ⑤</div><h4>翻转取肉</h4></div><div class="mech-detail"><h4>翻转取肉机构</h4><p>U型翻转盒自适应夹持半壳生蚝，30°预翻转使蚝壳顶靠末端。多光谱成像识别蚝肉朝上后完成180°翻转。升降夹爪"先抬升—后夹取"，双刀协同完成无损取肉，最后弃壳出料。</p></div></div>
-          <div class="mech-slide"><img src="assets/mech-lift.png" alt="升降取肉机构"><div class="mech-label"><div class="step-num">+</div><h4>升降取肉</h4></div><div class="mech-detail"><h4>升降取肉机构</h4><p>经翻转盒翻转后，视觉系统识别蚝肉位置。升降机构带动夹爪上升至蚝肉附近，夹爪合拢破坏闭壳肌附着后夹持提取，定位误差&lt;2mm，保持蚝肉完整性。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-slot.png" alt="限位扩缝机构"></div><div class="mech-label"><div class="step-num">工序 ①</div><h4>限位扩缝</h4></div><div class="mech-detail"><h4>限位扩缝机构</h4><p>限位盒对随机姿态的生蚝进行初步定位，舵机控制挡板，电机通过同步带驱动圆锯（3000rpm）横向切割扩大壳口，完毕后圆锯复位，生蚝下落至传送带。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-flip.png" alt="水平翻转机构"></div><div class="mech-label"><div class="step-num">工序 ②</div><h4>水平翻转</h4></div><div class="mech-detail"><h4>水平翻转机构</h4><p>树莓派AI Camera（IMX500）采集生蚝图像，YOLOv8-seg通过"掩码短边法"判定头尾方向。齿轮齿条推杆配合传送带摩擦，使生蚝旋转90°校正姿态，统一朝向下游工序。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-push.png" alt="红外推送机构"></div><div class="mech-label"><div class="step-num">工序 ③</div><h4>红外推送</h4></div><div class="mech-detail"><h4>红外推送机构</h4><p>红外传感器检测到生蚝到达后触发信号，停止传送带。齿轮齿条推杆以恒定速度将生蚝精准推送至夹持机构中心位置，为后续开壳工序做好准备。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-open.png" alt="夹持开壳机构"></div><div class="mech-label"><div class="step-num">工序 ④</div><h4>夹持开壳</h4></div><div class="mech-detail"><h4>夹持开壳机构</h4><p>分型虎钳通过正反牙梯形丝杠双向对中夹紧，斜面产生下压力抑制滑脱。四杆复合机构实现约10:1力放大（最大推力212N），平稳撬开蚝壳。推壳机构旋转弃去无肉端蚝壳。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-rotate.png" alt="翻转取肉机构"></div><div class="mech-label"><div class="step-num">工序 ⑤</div><h4>翻转取肉</h4></div><div class="mech-detail"><h4>翻转取肉机构</h4><p>U型翻转盒自适应夹持半壳生蚝，30°预翻转使蚝壳顶靠末端。多光谱成像识别蚝肉朝上后完成180°翻转。升降夹爪"先抬升—后夹取"，双刀协同完成无损取肉，最后弃壳出料。</p></div></div>
+          <div class="mech-slide"><div class="mech-img-wrap"><img src="assets/mech-lift.png" alt="升降取肉机构"></div><div class="mech-label"><div class="step-num">+</div><h4>升降取肉</h4></div><div class="mech-detail"><h4>升降取肉机构</h4><p>经翻转盒翻转后，视觉系统识别蚝肉位置。升降机构带动夹爪上升至蚝肉附近，夹爪合拢破坏闭壳肌附着后夹持提取，定位误差&lt;2mm，保持蚝肉完整性。</p></div></div>
         </div>
       </div>
     </div>
